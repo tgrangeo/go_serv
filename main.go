@@ -1,10 +1,14 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 	"io/ioutil"
+	_ "github.com/lib/pq"
 )
+
+var db *sql.DB
 
 func main(){
 	http.HandleFunc("/", server)

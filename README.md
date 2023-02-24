@@ -1,5 +1,12 @@
 # go_serv
 
-next: 
-	-command line
-	-https
+wip todolist golang postgresql
+
+
+next:
+	- create db 
+	- CRUD
+
+
+docker compose build
+docker compose up
