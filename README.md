@@ -10,3 +10,7 @@ next:
 
 docker compose build
 docker compose up
+
+
+go get gorm.io/gorm
+go get gorm.io/driver/postgres
