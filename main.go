@@ -1,18 +1,26 @@
 package main
 
 import (
-	"database/sql"
+	// "database/sql"
 	"fmt"
 	"net/http"
 	"io/ioutil"
 	_ "github.com/lib/pq"
+	"github.com/tgrangeo/go_serv/database"
 )
 
-var db *sql.DB
+// vaxr db *sql.DB
 
 func main(){
+
+	database.ConnectDb()
+	database.CreateDB()
+	database.InsertDB()
+
 	http.HandleFunc("/", server)
 	http.ListenAndServe(":3000", nil)
+
+
 }
 
 func openFile(file string)(string,error){
