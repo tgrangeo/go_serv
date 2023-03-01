@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "database/sql"
 	"fmt"
 	"net/http"
 	"io/ioutil"
@@ -9,18 +8,14 @@ import (
 	"github.com/tgrangeo/go_serv/database"
 )
 
-// vaxr db *sql.DB
-
 func main(){
 
-	database.ConnectDb()
-	database.CreateDB()
+	database.InitDb()
 	database.InsertDB()
+	database.DropTable()
 
 	http.HandleFunc("/", server)
 	http.ListenAndServe(":3000", nil)
-
-
 }
 
 func openFile(file string)(string,error){
