@@ -3,21 +3,63 @@
    <title>Go server</title>
    <body>  <!-- Début du corps de la page -->
            
-       <h1>Golang</h1>
-       
-       <p>
-		Go est un langage de programmation compilé et concurrent inspiré 
-		de C et Pascal. Ce langage a été développé par Google6 à partir d’un concept initial de Robert Griesemer 
-		(en), Rob Pike et Ken Thompson. Go possède deux implémentations : la première utilise gc, le compilateur Go ; la seconde utilise gccgo,
-		« frontend » GCC écrit en C++. Go est écrit en C en utilisant yacc et GNU Bison pour l’analyse syntaxique7 jusqu’à la version 1.4, et 
-		en Go lui-même pour les versions suivantes (1.5).
-		</p> 
-		<br>
-		<p>auto refresh test</p>
-		<br>
-		<p>auto refresh test 2</p>
-		<br>
-		<p>auto refresh test 3</p>
+       <h1>Golang To Do List</h1>
+
+		 <div id="addTodo">
+			<form method="POST" id="newTodo">
+				<label for="todo">New Todo</label>
+				<input id="nameTodo" name="nameTodo" value="hi" type="text">
+				<button type="submit">add</button>
+			</form>
+		 </div>
+
+		 <div id="todoList">
+			<ul id="list"></ul>
+			<button onclick="getTodos()">get todos</button>
+		 </div>
            
    </body>
+   <script>
+	url = "http://localhost:3000"
+	todos = []
+
+	class todo {
+		constructor(id, name, description) {
+  		  this.id = id;
+  		  this.name = name;
+		  this.description = description;
+  		}
+	}
+
+	function parseData(data){
+		parse = JSON.parse(data)
+		parse.data.forEach(element => {
+
+			to = new todo(element.ID, element.Name, element.Description)
+			console.log(to)
+			todos.push(to)
+		});
+	}
+
+	function getTodos(){
+		fetch(url + "/todos",{
+		method:"GET",
+		}).then(
+			response=>response.text()
+		).then(
+			(data) => {parseData(data)}
+		)
+		updateList()
+	}
+
+	function updateList(){
+		let list = document.getElementById("list");
+    	for (i = 0; i < todos.length; ++i) {
+        	var li = document.createElement('li');
+        	li.innerText = todos[i].name;
+        	list.appendChild(li);
+    	}
+	}
+
+   </script>
 </html>

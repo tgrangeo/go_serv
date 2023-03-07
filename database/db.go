@@ -42,23 +42,23 @@ func DropTable(){
 }
 
 func InsertDB() {
-	create("t","tt")
-	create("e","ee")
-	create("f","ff")
-	create("g","gg")
-	create("3","33")
-	create("h","hh")
-	create("b","bb")
-	update("b", "newb","newbb")
-	printAll()
+	Create("t","tt")
+	Create("e","ee")
+	Create("f","ff")
+	Create("g","gg")
+	Create("3","33")
+	Create("h","hh")
+	Create("b","bb")
+	Update("b", "newb","newbb")
+	//printAll()
 }
 
-func create(name string, desc string) {
+func Create(name string, desc string) {
 	todo := models.Todolist{Name: name, Description: desc}
 	db.Create(&todo)
 }
 
-func update(old string, newName string, newDescription string){
+func Update(old string, newName string, newDescription string){
 	db.Model(&models.Todolist{}).Where("name = ?", old).Update("Name", newName)
 	db.Model(&models.Todolist{}).Where("name = ?", old).Update("Description", newDescription)
 }
@@ -71,11 +71,17 @@ func printAll() {
 	}
 }
 
-func deleteByName(name string) {
+func FindAll() []models.Todolist {
+	var todos []models.Todolist
+	db.Find(&todos)
+	return todos
+}
+
+func DeleteByName(name string) {
 	db.Where("name = ?", name).Delete(&models.Todolist{})
 }
 
-func findByName(name string) *models.Todolist {
+func FindByName(name string) *models.Todolist {
 	var ret models.Todolist
 	db.Where("name = ?", name).First(ret)
 	return &ret
