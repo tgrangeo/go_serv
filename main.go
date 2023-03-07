@@ -27,6 +27,7 @@ func main(){
 
 	router.GET("/", Index)
 	router.GET("/todos", getTodos)
+	router.DELETE("/todos", deleteTodos)
 
 	http.ListenAndServe(":3000", router)
 }
@@ -35,6 +36,11 @@ func printAll(todos []models.Todolist) {
 	for x := range todos {
 		fmt.Println(todos[x].Name)
 	}
+}
+
+func deleteTodos(w http.ResponseWriter, r *http.Request, _ httprouter.Params){
+	w.WriteHeader(http.StatusOK)
+	database.DeleteAll()
 }
 
 func getTodos(w http.ResponseWriter, r *http.Request, _ httprouter.Params){

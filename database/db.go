@@ -42,14 +42,9 @@ func DropTable(){
 }
 
 func InsertDB() {
-	Create("t","tt")
-	Create("e","ee")
-	Create("f","ff")
-	Create("g","gg")
-	Create("3","33")
-	Create("h","hh")
-	Create("b","bb")
-	Update("b", "newb","newbb")
+	Create("task","tttttttttt")
+	Create("effiency","eewqerqwerqweerqwerqw")
+	Create("ff","se rendre")
 	//printAll()
 }
 
@@ -79,6 +74,11 @@ func FindAll() []models.Todolist {
 
 func DeleteByName(name string) {
 	db.Where("name = ?", name).Delete(&models.Todolist{})
+}
+
+func DeleteAll(){
+ 	db.Exec("TRUNCATE TABLE todolists;")
+	printAll()
 }
 
 func FindByName(name string) *models.Todolist {

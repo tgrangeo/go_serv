@@ -6,16 +6,15 @@
        <h1>Golang To Do List</h1>
 
 		 <div id="addTodo">
-			<form method="POST" id="newTodo">
-				<label for="todo">New Todo</label>
-				<input id="nameTodo" name="nameTodo" value="hi" type="text">
-				<button type="submit">add</button>
-			</form>
+			<label for="todo">New Todo</label>
+			<input id="nameTodo" name="nameTodo" value="hi" type="text">
+			<button onclick="newTodos()">add</button>
 		 </div>
 
 		 <div id="todoList">
 			<ul id="list"></ul>
 			<button onclick="getTodos()">get todos</button>
+			<button onclick="deleteTodos()">delete todos</button>
 		 </div>
            
    </body>
@@ -34,11 +33,25 @@
 	function parseData(data){
 		parse = JSON.parse(data)
 		parse.data.forEach(element => {
-
 			to = new todo(element.ID, element.Name, element.Description)
-			console.log(to)
 			todos.push(to)
 		});
+	}
+
+	function newTodos(){
+		name = document.getElementById("nameTodo").value
+		console.log(name)
+		fetch(url + "/todos",{
+			method:"POST",
+
+			//TODO:
+			//add argument to post name of the new todo 
+			//change db description for done or not done
+			//update list not instant update the html file 
+
+
+
+		})
 	}
 
 	function getTodos(){
@@ -52,11 +65,19 @@
 		updateList()
 	}
 
+	function deleteTodos(){
+		fetch(url + "/todos",{
+			method:"DELETE",
+		})
+		let list = document.getElementById("list").innerHTML = '';
+		todos = []
+	}
+
 	function updateList(){
 		let list = document.getElementById("list");
     	for (i = 0; i < todos.length; ++i) {
         	var li = document.createElement('li');
-        	li.innerText = todos[i].name;
+        	li.innerText = todos[i].name+ ": " + todos[i].description;
         	list.appendChild(li);
     	}
 	}
