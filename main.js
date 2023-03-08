@@ -1,5 +1,32 @@
 console.log("JS loaded")
 
+
+
+
+
+
+
+
+
+
+
+//actually all thescript are directly in html <script> tag
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const url = "localhost:3000"
 
 var todoForm = document.getElementById("newTodo")

@@ -51,6 +51,7 @@ func InsertDB() {
 func Create(name string, desc string) {
 	todo := models.Todolist{Name: name, Description: desc}
 	db.Create(&todo)
+	fmt.Println("new todo added:",name, desc)
 }
 
 func Update(old string, newName string, newDescription string){

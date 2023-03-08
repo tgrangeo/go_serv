@@ -21,13 +21,12 @@ func main(){
 
 	database.InitDb()
 	database.InsertDB()
-	//database.DropTable()
-
 	router := httprouter.New() 
 
 	router.GET("/", Index)
 	router.GET("/todos", getTodos)
 	router.DELETE("/todos", deleteTodos)
+	router.POST("/todos", newTodo)
 
 	http.ListenAndServe(":3000", router)
 }
@@ -36,6 +35,21 @@ func printAll(todos []models.Todolist) {
 	for x := range todos {
 		fmt.Println(todos[x].Name)
 	}
+}
+
+func newTodo(w http.ResponseWriter, r *http.Request, data httprouter.Params){
+	body, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(string(body))
+    var t models.Todolist
+    err = json.Unmarshal(body, &t)
+    if err != nil {
+        panic(err)
+    }
+	database.Create(t.Name,t.Description)
+
 }
 
 func deleteTodos(w http.ResponseWriter, r *http.Request, _ httprouter.Params){

@@ -40,19 +40,19 @@
 
 	function newTodos(){
 		name = document.getElementById("nameTodo").value
-		console.log(name)
+		data = {Name:name, Description:"ceci est une description"}
+		//console.log(JSON.stringify(data))
 		fetch(url + "/todos",{
 			method:"POST",
-
-			//TODO:
-			//add argument to post name of the new todo 
-			//change db description for done or not done
-			//update list not instant update the html file 
-
-
-
-		})
-	}
+			headers: {
+  		  'Content-Type': 'application/json',
+  		},
+  		body: JSON.stringify(data),
+	})
+}
+//TODO:
+//change db description for done or not done
+//update list not instant update the html file 
 
 	function getTodos(){
 		fetch(url + "/todos",{
